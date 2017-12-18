@@ -3,8 +3,16 @@
  */
 package org.escoladeltreball.provesStream;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.OptionalLong;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -68,12 +76,36 @@ public class Proves {
 		
 		//10:
 		
-		Stream.generate(() -> "1").limit(10).forEach(System.out::println);
+//		Stream.generate(() -> "1").limit(10).forEach(System.out::println);
 //		Stream.generate(() -> "1").limit(10).peek(System.out::println);
 
 		
 		// REALIZAR EL PARALLEL CON EL FIN DE OBTENER LAS ESTACIONES ABIERTAS
+		
+		
+		// 11:
+		
+		System.out.println(Stream.iterate(1, x -> ++x).limit(5).map(x -> "" + x).collect(Collectors.joining()));
+		
+		Supplier<String> x = String::new; // no entra nada 
+		BiConsumer<String, String> bicons = (a, b) -> System.out.println(); // entran dos parametros y void
+		UnaryOperator<String> z = a -> a + a; // realiza una operación
+		
+		
+		// 12:
+		List<Integer> l1 = Arrays.asList(1, 2, 3);
+		List<Integer> l2 = Arrays.asList(4, 5, 6);
+		List<Integer> l3 = Arrays.asList();
+		Stream.of(l1, l2, l3)
+		.flatMap(s -> s.stream()).map(s -> s + 1).forEach(System.out::print);
 
+
+//
+//		Stream<Integer> s = Stream.of(1);
+//		IntStream iss = s.mapToInt(j -> j);
+//		DoubleStream ds = s.mapToDouble(j -> j);
+//		Stream<Integer> s2 = ds.mapToInt(j -> j);
+//		s2.forEach(System.out::print);
 	}
 
 }
